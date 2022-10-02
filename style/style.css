@@ -1,0 +1,21 @@
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=DynaPuff&display=swap');
+html {
+    font-size: 62.5%;
+  }
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    text-align: center;
+    font-family: "Caveat", cursive;
+    font-size: 50px;
+    font-weight: bolder;
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    height: 100%;
+    width: 100%;
+  }

@@ -7,7 +7,7 @@ tipoTarea += "2.Domesticas\n"
 tipoTarea += "3.Personales\n"
 tipoTarea += "4.Otro\n"
 tipoTarea += "5.Salir\n"
-tipoTarea += "Ingrese un tipo de tarea\n\n"
+tipoTarea += "Ingrese un tipo de tarea, luego presione 5 para salir\n\n"
 let cantidad
 let opcion
 let otraTarea

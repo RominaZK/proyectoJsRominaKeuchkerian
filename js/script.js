@@ -48,7 +48,7 @@ if (proposito == "si") {
                 alert("Puedes definir el tipo de tarea luego")
                 break;
         }
-    } while (opcion != 5)
+    } while (opcion >=5)
 
     /*Funciones*/
     

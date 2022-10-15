@@ -18,10 +18,12 @@ html {
     align-content: center;
     height: 100%;
     width: 100%;
+    align-items: center;
+
   }
   h1{
     font-family: "Caveat", cursive;
-    font-size: 50px;
+    font-size: 30px;
   }
   h2{
     font-family: "Caveat", cursive;
@@ -32,4 +34,14 @@ html {
     font-family: "Caveat", cursive;
     font-size: 20px;
     text-align: left;
+  }
+  .table {
+    align-items: center;
+    font-size: 25px;
+  }
+
+  @media screen and (min-width: 500px){
+    .table{
+      width: 80%;
+    }
   }

@@ -64,7 +64,7 @@ if (proposito == "si") {
         item.descripcion = prompt("Ingrese la descripción de esta tarea")
         item.fechaLimite = new Date(prompt("ingrese la fecha límite para hacer la tarea (mes día,año)"))
         item.fechaHoy = new Date()
-        item.dias= fechaLimite - fechaHoy
+        item.dias = fechaLimite - fechaHoy
         item.horas = prompt("Ingrese la cantidad de horas que insume la tarea")
 
         return item
@@ -96,9 +96,17 @@ if (proposito == "si") {
     cargarUnaTarea(listaTareas)
     mostrarListaTareas(listaTareas)
     console.log(listaTareas)
-    
-    let horasTotale= listaTareas.reduce((acumulador, horas)=> acumulador + horas,0)
+
+    let horasTotale = listaTareas.reduce((acumulador, horas) => acumulador + horas, 0)
     console.log(horasTotale)
+
+    function buscarTarea(listaTareas, fechaLimite) {
+        let tareaFecha = listaTareas.find((item) => {
+            return item.fechaLimite == fechaLimite;
+        }) 
+        return tareaFecha;
+    }
+    buscarTarea(listaTareas, fechaLimite) 
 }
 
 

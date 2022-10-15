@@ -7,15 +7,20 @@ tipoTarea += "2.Domesticas\n"
 tipoTarea += "3.Personales\n"
 tipoTarea += "4.Otro\n"
 tipoTarea += "5.Salir\n"
-tipoTarea += "Ingrese un tipo de tarea, luego presione 5 para salir\n\n"
+tipoTarea += "Ingrese un tipo de tarea\n\n"
 let cantidad
 let opcion
 let otraTarea
 let cantTareas
 
+/*Objeto*/
+
+let listaTareas = []
+
+
 //Pedimos datos del usuario
 nombre = prompt("Cuál es tu nombre?")
-console.log(nombre)
+console.log("Bienvenido/a" + " " + nombre)
 alert("Bienvenido/a" + " " + nombre)
 document.write("<h1>Bienvenido/a" + " " + nombre + " " + "a tu organizador personal</h1>")
 proposito = prompt("Quieres hacer una lista de tareas?")
@@ -48,24 +53,55 @@ if (proposito == "si") {
                 alert("Puedes definir el tipo de tarea luego")
                 break;
         }
-    } while (opcion >=5)
+    } while (opcion >= 5)
 
     /*Funciones*/
-    
-    //Definir cantidad de solicitudes de ingreso de tarea
-    cantTareas = parseInt(prompt("Cuantas tareas desea ingresar?"))
-    console.log(cantTareas)
-    
-    //Para escribir en el documento todas las tareas ingresadas
-    function listaTareas() {
-        //Solicitar el ingreso de tareas, la cantidad que se definio anteriormente
-        for (let i = 1; i <= cantTareas; i++) {
-            let tarea = prompt("ingresar la tarea" + " " + i)
-            document.write("<h3>" + i + "-" + tarea + "</h3>")
+
+    function cargarUnaTarea() {
+
+        let item = new tarea()
+        item.id = prompt("Ingrese un numero de tarea")
+        item.descripcion = prompt("Ingrese la descripción de esta tarea")
+        item.fechaLimite = new Date(prompt("ingrese la fecha límite para hacer la tarea (mes día,año)"))
+        item.fechaHoy = new Date()
+        item.dias= fechaLimite - fechaHoy
+        item.horas = prompt("Ingrese la cantidad de horas que insume la tarea")
+
+        return item
+    }
+
+    function cargarListaTareas(listaTareas) {
+
+        let item
+        let continuar
+
+        do {
+            item = cargarUnaTarea()
+            listaTareas.push(item)
+            continuar = prompt("desea continuar cargando tareas? si/no")
+        } while (continuar == 'si')
+    }
+
+
+    function mostrarListaTareas(listaTareas) {
+        for (let item of listaTareas) {
+            console.log("id: " + item.id + "\n" +
+                "Descripción: " + item.descripcion + "\n" +
+                "Fecha_límite: " + item.fechaLimite + "\n" +
+                "Días_restantes" + item.dias + "\n" +
+                "Horas: " + item.horas + "\n")
         }
     }
-    listaTareas()
+
+    cargarUnaTarea(listaTareas)
+    mostrarListaTareas(listaTareas)
+    console.log(listaTareas)
+    
+    let horasTotale= listaTareas.reduce((acumulador, horas)=> acumulador + horas,0)
+    console.log(horasTotale)
 }
+
+
 if (proposito !== "si") {
     alert(nombre + " " + "dejemos esa lista para luego")
 }

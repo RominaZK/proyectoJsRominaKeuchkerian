@@ -13,10 +13,6 @@ let opcion
 let otraTarea
 let cantTareas
 
-/*Objeto*/
-
-let listaTareas = []
-
 
 //Pedimos datos del usuario
 nombre = prompt("Cuál es tu nombre?")
@@ -54,62 +50,57 @@ if (proposito == "si") {
                 break;
         }
     } while (opcion >= 5)
-
-    /*Funciones*/
-
-    function cargarUnaTarea() {
-
-        let item = new tarea()
-        item.id = prompt("Ingrese un numero de tarea")
-        item.descripcion = prompt("Ingrese la descripción de esta tarea")
-        item.fechaLimite = new Date(prompt("ingrese la fecha límite para hacer la tarea (mes día,año)"))
-        item.fechaHoy = new Date()
-        item.dias = fechaLimite - fechaHoy
-        item.horas = prompt("Ingrese la cantidad de horas que insume la tarea")
-
-        return item
-    }
-
-    function cargarListaTareas(listaTareas) {
-
-        let item
-        let continuar
-
-        do {
-            item = cargarUnaTarea()
-            listaTareas.push(item)
-            continuar = prompt("desea continuar cargando tareas? si/no")
-        } while (continuar == 'si')
-    }
-
-
-    function mostrarListaTareas(listaTareas) {
-        for (let item of listaTareas) {
-            console.log("id: " + item.id + "\n" +
-                "Descripción: " + item.descripcion + "\n" +
-                "Fecha_límite: " + item.fechaLimite + "\n" +
-                "Días_restantes" + item.dias + "\n" +
-                "Horas: " + item.horas + "\n")
-        }
-    }
-
-    cargarUnaTarea(listaTareas)
-    mostrarListaTareas(listaTareas)
-    console.log(listaTareas)
-
-    let horasTotale = listaTareas.reduce((acumulador, horas) => acumulador + horas, 0)
-    console.log(horasTotale)
-
-    function buscarTarea(listaTareas, fechaLimite) {
-        let tareaFecha = listaTareas.find((item) => {
-            return item.fechaLimite == fechaLimite;
-        }) 
-        return tareaFecha;
-    }
-    buscarTarea(listaTareas, fechaLimite) 
-}
-
-
-if (proposito !== "si") {
+}if (proposito !== "si") {
     alert(nombre + " " + "dejemos esa lista para luego")
 }
+
+/*Funciones*/
+/* Cargar tareas con prompt
+
+function cargarListaTareas(listaTareas) {
+
+    let item
+    let continuar
+
+    do {
+        item = cargarUnaTarea()
+        listaTareas.push(item)
+        continuar = prompt("desea continuar cargando tareas? si/no")
+    } while (continuar == 'si')
+}
+
+function cargarUnaTarea() {
+
+    let item = new tarea()
+    item.id = prompt("Ingrese un numero de tarea")
+    item.descripcion = prompt("Ingrese la descripción de esta tarea")
+    item.fechaLimite = new Date(prompt("ingrese la fecha límite para hacer la tarea (mes día,año)"))
+    item.fechaHoy = new Date()
+    item.dias = fechaLimite - fechaHoy
+    item.horas = parseInt(prompt("Ingrese la cantidad de horas que insume la tarea"))
+
+    return item
+}
+
+function mostrarListaTareas(listaTareas) {
+    for (let item of listaTareas) {
+        console.log("id: " + item.id + "\n" +
+            "Descripción: " + item.descripcion + "\n" +
+            "Fecha_límite: " + item.fechaLimite + "\n" +
+            "Días_restantes" + item.dias + "\n" +
+            "Horas:" + item.horas + "\n")
+    }
+}
+
+cargarUnaTarea(listaTareas)
+mostrarListaTareas(listaTareas)
+console.log(listaTareas)
+
+
+function buscarTarea(listaTareas, fechaLimite) {
+    let tareaFecha = listaTareas.find((item) => {
+        return item.fechaLimite == fechaLimite;
+    })
+    return tareaFecha;
+}
+buscarTarea(listaTareas, fechaLimite)*/

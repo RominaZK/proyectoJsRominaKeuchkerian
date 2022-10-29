@@ -13,7 +13,7 @@ class tarea {
         this.id = id
         this.descripcion = descripcion
         this.fechaLimite = fechaLimite
-        this.fechaHoy = fechaHoy
+        this.fechaHoy = new Date()
         this.dias = dias
         this.horas = horas
         

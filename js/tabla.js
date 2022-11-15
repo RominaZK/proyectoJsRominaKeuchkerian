@@ -1,87 +1,76 @@
 
 /*Objeto*/
 let listaTareas = []
-let item = undefined
-
-//Mostrar lista en el DoM
-function mostrarListaDOM(listaTareas) {
-    let tabla = document.getElementById("table")
-    tabla.innerHTML = ""
-    listaTareas.forEach((tarea) => {
-        tabla.innerHTML += `
-                        <tr>
-                            <th> ${tarea.id} </th>
-                            <th> ${tarea.descripcion} </th>
-                            <th> ${tarea.fechaLimite} </th>
-                            <th> ${tarea.dias} </th>
-                            <th> ${tarea.horas} </th>
-                            <th> ${tarea.estado} </th>
-                            <th> ${tarea.horasTotales} </th>
-                        </tr>`
-    })
-
-}
-mostrarListaDOM(listaTareas)
+const item = new tarea ()
+const tabla = document.getElementById("items")
 
 function newrow(tarea) {
     let row = document.createElement("tr")
     let pos = listaTareas.indexOf(tarea)
 
-    let celda = document.createElement("th")
+    let celda = document.createElement("td")
     celda.innerText = tarea.id
     row.append(celda)
 
-    celda = document.createElement("th")
+    celda = document.createElement("td")
     celda.innerText = tarea.descripcion
     row.append(celda)
 
-    celda = document.createElement("th")
+    celda = document.createElement("td")
     celda.innerText = tarea.fechaLimite
     row.append(celda)
 
-    celda = document.createElement("th")
+    celda = document.createElement("td")
     celda.innerText = tarea.dias
     row.append(celda)
 
-    celda = document.createElement("th")
+
+
+    celda = document.createElement("td")
     celda.innerText = tarea.horas
     row.append(celda)
 
     ///Agrego boton check
     let botonCheck = document.createElement("input")
     botonCheckclassName = "checkbox"
-    checkbox.type = "checkbox";
-    checkbox.id = "check";
+    botonCheck.type = "checkbox"
+    botonCheck.id = "check"
     botonCheck.innerText = "Hecho"
 
     //Marcar como tarea hecha y en días restantes marcar cero
     botonCheck.onclick = () =>
         listaTareas[pos].estado
-        localStorage("listaTareas", JSON.stringify(listaTareas))
+        localStorage.setItem("listaTareas", JSON.stringify(listaTareas))
 
-    celda = document.createElement("th")
+    celda = document.createElement("td")
     celda.innerText = tarea.estado
     celda.append(botonCheck)
     row.append(celda)
 
-    tabla.append(row);
 
+    ///Agrego boton eliminar
+    let botonEliminar=document.createElement('botton')
+    botonEliminar.className= "btn btn-primary"
+    botonEliminar.innerText = "Eliminar";
+    
+    botonEliminar.onclick = () => {
+        listaTareas.splice(pos,1); ///elimina el objeto en la posicion pos del carrito
+        listadoUpdate(); //vuelvo a generar los elementos del DOM
+        localStorage.setItem("listaTareas",JSON.stringify(listaTareas));
 } 
-function horasTotales(){
-
-    total= document.getElementById("total")
-    total.innerText= listaTareas.reduce((suma,tarea) => 
-    suma + tarea.horas ,0)
-    }
-
+celda = document.createElement("td");
+    celda.append(botonEliminar);
+    row.append(celda);
+    tabla.append(row);
+}
 
 
 /* actualizar lista */
 function listadoUpdate() {
     tabla.innerHTML = "";
-    listaTareas.forEach((item) => 
+    listaTareas.forEach((tarea) => 
     {
-        newRow(item);
+        newrow(tarea);
     });
     horasTotales();
 }
@@ -92,5 +81,8 @@ function checkboxClick(event) {
     event.preventDefault();
 }
 
+/* vaciar form*/
+function limpiarFormulario() {
+    document.getElementById("form").reset();
 
-
+}

@@ -5,71 +5,88 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="sweetalert2.min.css">
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="./js/clases.js"></script>
-    <script type="text/javascript" src="./js/script.js"></script>
     <link rel="stylesheet" href="./style/styles.css">
     <title>Preentrega proyecto coder</title>
+    
+
+
 </head>
 
 <body>
     <header>
-
     </header>
     <main>
         <div>
-            <h1 class="saludo"></h1>
+            <h1 class="saludo">Bienvenida/o a tu organizador personal</h1>
         </div>
-
         <section>
             <div>
-                <form action="" class="formulario">
+                <div class="form__flex">
                     <h1 class="formulario__titulo">Crea una lista de tareas</h1>
-                    <div class="form__flex">
-                        <div>
-                            <input type="text" class="formulario__input" id="id">
-                            <label for="" class="formulario__label">Número</label>
-                        </div>
-                        <div>
-                            <input type="text" class="formulario__input" id="tarea">
-                            <label for="" class="formulario__label">Tarea</label>
-                        </div>
-                        <div>
-                            <input type="text" class="formulario__input" id="horas">
-                            <label for="" class="formulario__label">Horas</label>
-                        </div>
-                        <div>
-                            <input type="date" class="formulario__input" id="fechaLimite">
-                            <label for="" class="formulario__label">Fecha límite</label>
-                        </div>
-                        <div>
-                            <button type="submit" class="formulario__submit" id="agregar">Agregar</button>
-                        </div>
+                    <form action="" class="formulario" id="form">
+                    <div>
+                    <div>
+                        <input type="text" class="formulario__input" id="id" name="id">
+                        <label for="id" class="formulario__label">#</label>
                     </div>
-
+                    <div>
+                        <input type="text" class="formulario__input" id="tareas" name="tareas">
+                        <label for="tareas" class="formulario__label">Tarea</label>
+                    </div>
+                    <div>
+                        <input type="number" class="formulario__input" id="horas" name="horas">
+                        <label for="horas" class="formulario__label">Horas</label>
+                    </div>
+                    <div>
+                        <input type="date" class="formulario__input" id="fechaLimite" name="fechaLimite">
+                        <label for="fechaLimite" class="formulario__label">Fecha límite</label>
+                    </div>
+                    <div>
+                        <button type="submit" class="formulario__submit" id="agregar">Agregar</button>
+                    </div>
+                </div>
                 </form>
             </div>
             <div>
-                <table class="table">
+                <table class="table" id="table">
                     <thead>
                         <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Tarea</th>
-                            <th scope="col">Fecha límite</th>
-                            <th scope="col">Horas necesarias</th>
-                            <th scope="col">Días restantes</th>
-                            <th scope="col">Estado</th>
+                            <th>#</th>
+                            <th>Tarea</th>
+                            <th>Fecha límite</th>
+                            <th>Horas necesarias</th>
+                            <th id="dias">Días restantes</th>
+                            <th>Estado</th>
                         </tr>
                     </thead>
-                    <tbody id="item" class="table-row">
-                        
+                    <tbody id="items" class="table-row">
+
                     </tbody>
                     <tfoot>
                         <tr>
+                            <th>Total: </th>
+                            <th></th>
                             <th id="total"></th>
+                            <th></th>
                         </tr>
                     </tfoot>
-                    </tbody>
                 </table>
+            </div>
+            <div class="container m-1">
+                <button id="ordenar" class="btn btn-primary">
+                    Ordenar
+                </button>
+                <button id="vaciar" class="btn btn-primary">
+                    Vaciar
+                </button>
+                <button id="calendar" class="btn btn-primary">
+                    calendar
+                </button>
+            </div>
+            </div>
             </div>
         </section>
     </main>
@@ -77,8 +94,10 @@
     <footer>
 
     </footer>
-    <script src="./js/tabla.js"></script>
-    <script src="./js/form.js"></script>
+    
+    
+    <script type="text/javascript" src="./js/script.js"></script>
+    <script src="sweetalert2.min.js"></script>
 </body>
 
 </html>

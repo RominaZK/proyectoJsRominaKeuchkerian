@@ -19,6 +19,7 @@ body {
     height: 100%;
     width: 100%;
     align-items: center;
+    overflow-y: scroll;
 }
 
 main {
@@ -49,9 +50,10 @@ h3 {
 
 .table {
     align-items: center;
-    font-size: 25px;
+    font-size: 8px;
     @media screen and (min-width: 500px) {
             width: 80%;
+            font-size: 15px;
         
     }
 }

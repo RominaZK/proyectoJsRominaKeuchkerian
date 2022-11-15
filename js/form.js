@@ -11,19 +11,19 @@ let checkClik = document.getElementById("checkClick")
 
 
 ///todos los forms
-let forms = document.querySelectorAll("form")
+const forms = document.querySelector("#form")
 
 
 // agregar tarea
 ///eventlisteners
-agregar.addEventListener("submit", (evento) => {
-    evento.preventDefault()
-    let item 
-    let newitem = new item(parseInt(item.tarea.id.value), item.tarea.descripcion.value, parseInt(item.tarea.horas.value), parsedate(fechaLimite), checkClik)
+forms.addEventListener("submit", (e) => {
+    e.preventDefault()
+    let newitem = new tarea(parseInt(id), descripcion, Date.parse(fechaLimite), dias, parseInt(horas))
     listaTareas.push(newitem)
     newrow(newitem)
-    horasTotales()
-    listadoUpdate()
     localStorage.setItem("listaTareas", JSON.stringify(listaTareas))
     alert("Tarea agregada!")
+    horasTotales()
+    listadoUpdate()
+    limpiarFormulario()
 })

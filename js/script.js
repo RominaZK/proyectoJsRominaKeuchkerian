@@ -1,106 +1,182 @@
-/* variables*/
-let nombre
-let proposito
-let tipoTarea = "Que tipo de tareas son?\n"
-tipoTarea += "1.Trabajo\n"
-tipoTarea += "2.Domesticas\n"
-tipoTarea += "3.Personales\n"
-tipoTarea += "4.Otro\n"
-tipoTarea += "5.Salir\n"
-tipoTarea += "Ingrese un tipo de tarea\n\n"
-let cantidad
-let opcion
-let otraTarea
-let cantTareas
+/*Objeto*/
+let listaTareas = []
+const item = new tarea()
+const tabla = document.getElementById("items")
+const vaciar = document.getElementById("vaciar")
+const ordenar = document.getElementById("ordenar")
+const total = document.getElementById("total")
+
+///elementos del dom
+///form 
+let id = document.getElementById("id")
+let descripcion = document.getElementById("tarea")
+let horas = document.getElementById("horas")
+let fechaLimite = document.getElementById("fechaLimite")
+
+///botones
+const agregar = document.querySelector("#agregar")
+let checkClik = document.getElementById("checkClick")
 
 
-//Pedimos datos del usuario
-nombre = prompt("Cuál es tu nombre?")
-console.log("Bienvenido/a" + " " + nombre)
-alert("Bienvenido/a" + " " + nombre)
-document.write("<h1>Bienvenido/a" + " " + nombre + " " + "a tu organizador personal</h1>")
-proposito = prompt("Quieres hacer una lista de tareas?")
+///todos los forms
+const forms = document.querySelector("#form")
 
-/*Condicionales*/
-//Para realizar o  no la tarea
-if (proposito == "si") {
-    alert(nombre + " " + "hagamos esa lista")
-    /*Ciclo*/
-    //Menu de tipo de tareas
-    do {
-        opcion = parseInt(prompt(tipoTarea))
-        switch (opcion) {
-            case 1:
-                document.write("<h2>Tareas laborales pendientes</h2>")
-                break;
-            case 2:
-                document.write("<h2>Tareas démesticas pendientes</h2>")
-                break;
-            case 3:
-                document.write("<h2>Tareas personales pendientes</h2>")
-                break;
-            case 4:
-                otraTarea = prompt("Que tipo de tarea será?")
-                document.write("<h2>Tareas de" + " " + otraTarea + " " + "pendientes </h2>")
-                break;
-            case 5:
-                break;
-            default:
-                alert("Puedes definir el tipo de tarea luego")
-                break;
-        }
-    } while (opcion >= 5)
-}if (proposito !== "si") {
-    alert(nombre + " " + "dejemos esa lista para luego")
-}
 
-/*Funciones*/
-/* Cargar tareas con prompt
+///Función nueva fila
 
-function cargarListaTareas(listaTareas) {
+function newrow(tarea) {
+    let row = document.createElement("tr")
+    let pos = listaTareas.indexOf(tarea)
 
-    let item
-    let continuar
+    let celda = document.createElement("td")
+    celda.innerText = tarea.id
+    row.append(celda)
 
-    do {
-        item = cargarUnaTarea()
-        listaTareas.push(item)
-        continuar = prompt("desea continuar cargando tareas? si/no")
-    } while (continuar == 'si')
-}
+    celda = document.createElement("td")
+    celda.innerText = tarea.descripcion
+    row.append(celda)
 
-function cargarUnaTarea() {
+    celda = document.createElement("td")
+    celda.innerText = tarea.fechaLimite
+    row.append(celda)
 
-    let item = new tarea()
-    item.id = prompt("Ingrese un numero de tarea")
-    item.descripcion = prompt("Ingrese la descripción de esta tarea")
-    item.fechaLimite = new Date(prompt("ingrese la fecha límite para hacer la tarea (mes día,año)"))
-    item.fechaHoy = new Date()
-    item.dias = fechaLimite - fechaHoy
-    item.horas = parseInt(prompt("Ingrese la cantidad de horas que insume la tarea"))
+    celda = document.createElement("td")
+    celda.innerText = tarea.dias
+    row.append(celda)
 
-    return item
-}
 
-function mostrarListaTareas(listaTareas) {
-    for (let item of listaTareas) {
-        console.log("id: " + item.id + "\n" +
-            "Descripción: " + item.descripcion + "\n" +
-            "Fecha_límite: " + item.fechaLimite + "\n" +
-            "Días_restantes" + item.dias + "\n" +
-            "Horas:" + item.horas + "\n")
+
+    celda = document.createElement("td")
+    celda.innerText = tarea.horas
+    row.append(celda)
+
+    ///Agrego boton check
+    let botonCheck = document.createElement("input")
+    botonCheckclassName = "checkbox"
+    botonCheck.type = "checkbox"
+    botonCheck.id = "check"
+    botonCheck.innerText = "Hecho"
+
+    //Marcar como tarea hecha y en días restantes marcar cero
+    botonCheck.onclick = () =>
+        listaTareas[pos].estado
+    localStorage.setItem("listaTareas", JSON.stringify(listaTareas))
+
+    celda = document.createElement("td")
+    celda.innerText = tarea.estado
+    celda.append(botonCheck)
+    row.append(celda)
+
+
+    ///Agrego boton eliminar
+    let botonEliminar = document.createElement('botton')
+    botonEliminar.className = "btn btn-primary"
+    botonEliminar.innerText = "Eliminar";
+
+    botonEliminar.onclick = () => {
+        listaTareas.splice(pos, 1); ///elimina el objeto en la posicion pos del carrito
+        listadoUpdate(); //vuelvo a generar los elementos del DOM
+        localStorage.setItem("listaTareas", JSON.stringify(listaTareas));
     }
+    celda = document.createElement("td");
+    celda.append(botonEliminar);
+    row.append(celda);
+    tabla.append(row);
 }
 
-cargarUnaTarea(listaTareas)
-mostrarListaTareas(listaTareas)
-console.log(listaTareas)
+/* actualizar lista */
+function listadoUpdate() {
+    tabla.innerHTML = "";
+    listaTareas.forEach((tarea) => {
+        newrow(tarea);
+    });
+    horasTotales();
+}
 
+function checkboxClick(event) {
+    let mensaje = "hecho";
+    document.getElementById("check").innerHTML += mensaje;
+    event.preventDefault();
+}
 
-function buscarTarea(listaTareas, fechaLimite) {
-    let tareaFecha = listaTareas.find((item) => {
-        return item.fechaLimite == fechaLimite;
+/* vaciar form*/
+function limpiarFormulario() {
+    document.getElementById("form").reset();
+
+}
+
+function limpiarFormulario() {
+    document.getElementById("form").reset();
+
+}
+
+function horasTotales() {
+    total.innerText = listaTareas.reduce(
+        (suma, tarea) => suma + tarea.horas, 0)
+}
+/* vaciamos lista */
+vaciar.onclick = () => {
+    listaTareas = []
+    ///lista.length = 0
+    listadoUpdate()
+    localStorage.setItem("listaTareas", JSON.stringify(listaTareas));
+}
+/* actualizar lista */
+function listadoUpdate() {
+    tabla.innerHTML = ""
+    listaTareas.forEach((tarea) => {
+        newrow(tarea)
     })
-    return tareaFecha;
+    horasTotales()
 }
-buscarTarea(listaTareas, fechaLimite)*/
+
+
+
+// agregar tarea
+///eventlisteners
+forms.addEventListener("submit", (e) => {
+    e.preventDefault()
+    let item = new tarea(parseInt(id), descripcion, parseInt(horas), Date.parse(fechaLimite), Date.parse(fechaHoy), dias)
+    listaTareas.push(item)
+    newrow(item)
+    localStorage.setItem("listaTareas", JSON.stringify(listaTareas))
+    Swal.fire({
+        position: 'top-end',
+        icon: 'success',
+        title: '"Tarea agregadacon exito!"',
+        showConfirmButton: false,
+        timer: 1500
+    })
+    horasTotales()
+    listadoUpdate()
+    limpiarFormulario()
+})
+
+///Agregando API
+let calendar = document.getElementById("calendar")
+const fecha = document.getElementById("fechaLimite")
+
+calendar.onclick = (e) => {
+    e.preventDefault();
+    let evento = fecha.value;
+
+    const nuevoEvento = new Agendar();
+    nuevoEvento.append("q", evento);
+    nuevoEvento.append("target", "es");
+    calculodias.append("source", "en");
+
+
+    const options = {
+        method: 'POST',
+        headers: {
+            Token: 'undefined',
+            'X-RapidAPI-Key': '71a08789c3msh7edd88a371ba29ap189c5cjsn0d5c24e24c19',
+            'X-RapidAPI-Host': 'pinke01-31events-auth.p.rapidapi.com'
+        }
+    };
+
+    fetch('https://pinke01-31events-auth.p.rapidapi.com/event', options)
+        .then(response => response.json())
+        .then(response => console.log(response))
+        .catch(err => console.error(err))
+}
